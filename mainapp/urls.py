@@ -28,4 +28,5 @@ urlpatterns = [
     path("contacts/", views.ContactsPageView.as_view(), name = "contacts_page"),
     path("doc_site/", views.DocSitePageView.as_view(), name = "doc_page"),
     path("login/", views.LoginPageView.as_view(), name = "login_page"),
+    path("news/<int:pk>/", views.NewsPageDetailView.as_view(),name="news_detail"),
 ]

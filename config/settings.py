@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainapp'
+    "social_django",
+    'mainapp',
+    "authapp",
 ]
 
 MIDDLEWARE = [
@@ -66,6 +68,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 "mainapp.context_processors.example.simple_context_processor",
+                "django.template.context_processors.media",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -131,3 +136,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# Media files 
+
+MEDIA_URL="/media/" 
+
+MEDIA_ROOT=BASE_DIR/"media"
+
+AUTH_USER_MODEL = "authapp.CustomUser"
+
+LOGIN_REDIRECT_URL = "mainapp:main_page" 
+
+LOGOUT_REDIRECT_URL = "mainapp:main_page"
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+
+AUTHENTICATION_BACKENDS = ( "social_core.backends.github.GithubOAuth2", "django.contrib.auth.backends.ModelBackend", )
+
+SOCIAL_AUTH_GITHUB_KEY = "57fd6fa48d59c5a15c65"
+
+SOCIAL_AUTH_GITHUB_SECRET = "9b98f958fb7086467e3823b2ffd25b47888b2e9f"
