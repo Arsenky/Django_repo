@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "markdownify.apps.MarkdownifyConfig",
     "social_django",
     'mainapp',
     "authapp",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -112,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -156,3 +158,5 @@ AUTHENTICATION_BACKENDS = ( "social_core.backends.github.GithubOAuth2", "django.
 SOCIAL_AUTH_GITHUB_KEY = "57fd6fa48d59c5a15c65"
 
 SOCIAL_AUTH_GITHUB_SECRET = "9b98f958fb7086467e3823b2ffd25b47888b2e9f"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
