@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mainapp',
     "authapp",
     "crispy_forms",
+    "debug_toolbar"
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -160,3 +162,75 @@ SOCIAL_AUTH_GITHUB_KEY = "57fd6fa48d59c5a15c65"
 SOCIAL_AUTH_GITHUB_SECRET = "9b98f958fb7086467e3823b2ffd25b47888b2e9f"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+LOG_FILE = BASE_DIR / "var" / "log" / "main_log.log"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {
+            "format": "[%(asctime)s] %(levelname)s %(name)s (%(lineno)d) %(message)s"
+        },
+    },
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler", 
+            "formatter": "console",
+            "filename": LOG_FILE,
+            "level": "DEBUG",
+            },
+        "console": {"class": "logging.StreamHandler", "formatter": "console"},
+    },
+    "loggers": {
+        "django": {"level": "INFO", "handlers": ["file", "console"]},
+        "mainapp": {
+            "level": "DEBUG",
+            "handlers": ["file"],
+        }
+    },
+}
+
+ALLOWED_HOSTS = ["*"]
+
+if DEBUG:
+    INTERNAL_IPS = [
+    "192.168.1.4",
+    "127.0.0.1",
+    ]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+
+# Celery — сторонняя программа и запускать её надо отдельно. Если мы вносим изменения в код,
+# Celery требуется перезапускать вручную, в отличие от отладочного сервера Django с авторестартом
+# при изменении файлов.
+# Celery запускается командой:
+# celery -A config worker -l INFO
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+
+# Read about sending email:
+# https://docs.djangoproject.com/en/3.2/topics/email/
+# Full list of email settings:
+# https://docs.djangoproject.com/en/3.2/ref/settings/#email
+# EMAIL_HOST = "localhost"
+# EMAIL_PORT = "25"
+# For debugging: python -m smtpd -n -c DebuggingServer localhost:25
+# EMAIL_HOST_USER = "django@geekshop.local"
+# EMAIL_HOST_PASSWORD = "geekshop"
+# EMAIL_USE_SSL = False
+# If server support TLS:
+# EMAIL_USE_TLS = True
+# Email as files for debug
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = "var/email-messages/"
