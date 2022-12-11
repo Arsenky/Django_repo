@@ -12,37 +12,37 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item {% if request.resolver_match.view_name == 'mainapp:news_page' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'mainapp:news' %}">{% translate "Новости" %}</a>
+                    <a class="nav-link" href="{% url 'mainapp:news' %}">{% translate "News" %}</a>
                 </li>
                 <li class="nav-item {% if request.resolver_match.view_name == 'mainapp:courses_page' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'mainapp:courses' %}">{% translate "Курсы" %}</a>
+                    <a class="nav-link" href="{% url 'mainapp:courses' %}">{% translate "Courses" %}</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="ddProfile" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                       {% translate "Профиль" %}
+                       {% translate "Profile" %}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="ddProfile">
-                        <a class="dropdown-item" href="{% url 'authapp:profile_edit' pk=request.user.pk %}">{% translate "Редактировать профиль" %}</a>
-                        <a class="dropdown-item" href="#">{% translate "Мои курсы" %}</a>
+                        <a class="dropdown-item" href="{% url 'authapp:profile_edit' pk=request.user.pk %}">{% translate "Edit profile" %}</a>
+                        <a class="dropdown-item" href="#">{% translate "My courses" %}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">{% translate "Модерация" %}</a>
+                        <a class="dropdown-item" href="#">{% translate "Moderation" %}</a>
                         {% if user.is_superuser %} 
-                        <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">{% translate "Административный раздел" %}</a> 
-                        <a class="dropdown-item" href="{% url 'mainapp:log_view' %}"target="_blank">{% translate "Лог" %}</a>
+                        <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">{% translate "Admin" %}</a> 
+                        <a class="dropdown-item" href="{% url 'mainapp:log_view' %}"target="_blank">{% translate "Log" %}</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'authapp:logout' %}">{% translate "Выход" %}</a>
+                        <a class="dropdown-item" href="{% url 'authapp:logout' %}">{% translate "Exit" %}</a>
                     </div>
                 </li>
                 {% else %} 
                 <li class="nav-item"> 
-                    <a class="nav-link" href= "{% url 'authapp:login' %}">{% translate "Вход" %}</a> 
+                    <a class="nav-link" href= "{% url 'authapp:login' %}">{% translate "Login" %}</a> 
                 </li> 
                 {% endif %}
                 <li class="nav-item {% if request.resolver_match.view_name == 'mainapp:contacts_page' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'mainapp:contacts' %}">{% translate "Контакты" %}</a>
+                    <a class="nav-link" href="{% url 'mainapp:contacts' %}">{% translate "Contacts" %}</a>
                 </li>
             </ul>
             <div class="row justify-content-end m-0">
